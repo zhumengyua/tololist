@@ -1,0 +1,81 @@
+/* app.wxss 全局样式 */
+page {
+  background: #f5f6fa;
+  font-size: 28rpx;
+  color: #333;
+  box-sizing: border-box;
+}
+
+/* 通用卡片 */
+.card {
+  background: #fff;
+  border-radius: 16rpx;
+  margin: 20rpx 24rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+/* 通用标题区 */
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 20rpx;
+}
+
+/* 主按钮 */
+.btn-primary {
+  background: #e64340;
+  color: #fff;
+  border-radius: 12rpx;
+  font-size: 32rpx;
+  text-align: center;
+  padding: 22rpx 0;
+  line-height: 1;
+}
+.btn-primary::after {
+  border: none;
+}
+
+/* 次按钮 */
+.btn-plain {
+  background: #fff;
+  color: #e64340;
+  border: 2rpx solid #e64340;
+  border-radius: 12rpx;
+  font-size: 30rpx;
+  text-align: center;
+  padding: 18rpx 0;
+}
+.btn-plain::after {
+  border: none;
+}
+
+/* 表单项 */
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 22rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.form-label {
+  width: 180rpx;
+  color: #666;
+  flex-shrink: 0;
+}
+.form-input {
+  flex: 1;
+  text-align: right;
+  color: #333;
+}
+
+/* 空态 */
+.empty {
+  text-align: center;
+  padding: 120rpx 0;
+  color: #aaa;
+  font-size: 28rpx;
+}
+.empty-tip {
+  margin-top: 16rpx;
+}

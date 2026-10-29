@@ -1,0 +1,168 @@
+<!-- 卖出（整仓卖出 + 单笔持仓勾选批量卖出） -->
+<view class="page">
+  <!-- 选择股票（两个 tab 共用） -->
+  <view class="card">
+    <picker range="{{stockOptions}}" range-key="label" value="{{stockIndex}}" bindchange="onPickStock">
+      <view class="stock-picker">
+        <view>
+          <view class="name">{{selected.name}}</view>
+          <view class="code">{{selected.code}} · 可卖 {{selected.availableHand}} 手</view>
+        </view>
+        <view class="arrow">▾</view>
+      </view>
+    </picker>
+  </view>
+
+  <van-tabs
+    active="{{activeTab}}"
+    bind:change="onTabChange"
+    color="#e64340"
+    title-active-color="#e64340"
+    line-width="40">
+
+    <!-- ===== Tab 整仓卖出 ===== -->
+    <van-tab title="整仓卖出">
+      <view class="card">
+        <view class="form-row cnt-row">
+          <view class="form-label">卖出数量(手)</view>
+          <view class="clear-btn" bindtap="onClear">清仓全部</view>
+        </view>
+        <input class="form-input" type="number" placeholder="如 1 = 100股" value="{{numStr}}" data-field="num" bindinput="onInput" />
+        <view class="hand-tip">1 手 = 100 股，卖出按整手</view>
+        <view class="form-row">
+          <view class="form-label">卖出价(元)</view>
+          <input class="form-input" type="digit" placeholder="0.00" value="{{priceStr}}" data-field="price" bindinput="onInput" />
+        </view>
+        <view class="form-row">
+          <view class="form-label">成交日期</view>
+          <picker mode="date" value="{{sellDate}}" bindchange="onDate">
+            <view class="form-input">{{sellDate}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <!-- 预估收益 -->
+      <view class="card">
+        <view class="card-title">预估收益</view>
+        <view class="fee-row">
+          <text>卖出数量</text>
+          <text class="fee-val strong">{{preview.sharesText}}</text>
+        </view>
+        <view class="fee-row">
+          <text>卖出净额</text>
+          <text class="fee-val">¥ {{preview.sellNet}}</text>
+        </view>
+        <view class="fee-row">
+          <text>卖出费用</text>
+          <text class="fee-val">¥ {{preview.sellFee}}</text>
+        </view>
+        <view class="fee-row">
+          <text>分摊买入成本</text>
+          <text class="fee-val">¥ {{preview.allocatedCost}}</text>
+        </view>
+      <!-- 预估盈亏醒目面板 -->
+      <view class="hero {{preview.profitNum >= 0 ? 'hero-up' : 'hero-down'}}">
+        <view class="hero-label">预估盈亏</view>
+        <view class="hero-num">{{preview.profit}}</view>
+        <view class="hero-rate">收益率 {{preview.profitRate}}</view>
+      </view>
+      </view>
+    </van-tab>
+
+    <!-- ===== Tab 单笔持仓：买入记录，勾选批量卖出 ===== -->
+    <van-tab title="单笔持仓">
+      <view class="card">
+        <view class="card-title">这笔卖出的成交价</view>
+        <view class="form-row">
+          <view class="form-label">卖出价(元)</view>
+          <input class="form-input" type="digit" placeholder="成交均价" value="{{priceStr}}" data-field="price" bindinput="onInput" />
+        </view>
+        <view class="form-row">
+          <view class="form-label">成交日期</view>
+          <picker mode="date" value="{{sellDate}}" bindchange="onDate">
+            <view class="form-input">{{sellDate}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <!-- 买入记录（单笔持仓）多选 -->
+      <view class="card">
+        <view class="card-title">买入记录（勾选要卖出的，可批量）</view>
+        <view class="tplus-tip">勾选后填手数，保存时每笔单独生成卖出流水并各自记盈亏</view>
+        <view class="batch" wx:for="{{batchItems}}" wx:key="id"
+              data-id="{{item.id}}" bindtap="onToggleBatch">
+          <view class="batch-check {{item.checked ? 'checked' : ''}}">{{item.checked ? '✓' : ''}}</view>
+          <view class="batch-info">
+            <view class="batch-top">
+              <text class="batch-time">{{item.buyTime}}</text>
+              <text class="batch-price">买入 @{{item.buyPriceText}}</text>
+            </view>
+            <view class="batch-bottom">
+              <text class="batch-remain">该笔剩余 {{item.remainHand}} 手</text>
+            </view>
+          </view>
+          <view class="batch-num" wx:if="{{item.checked}}" catchtap="noop">
+            <input class="batch-input" type="number" placeholder="卖几手"
+                   value="{{item.sellHandsStr}}" data-id="{{item.id}}" bindinput="onBatchInput" />
+          </view>
+        </view>
+
+        <view class="empty-mini" wx:if="{{batchItems.length === 0}}">该股票没有可选的买入记录</view>
+      </view>
+
+    </van-tab>
+  </van-tabs>
+
+  <!-- 确认按钮：固定在底部，按当前 tab 切换文案/动作（不放 tab 面板内，避免面板 height:0 布局干扰） -->
+  <view class="sell-footer">
+    <view wx:if="{{activeTab === 0}}" class="btn-primary" bindtap="onSave">确认卖出</view>
+    <view wx:else class="btn-primary" bindtap="onSaveTplus">确认批量卖出（分笔记盈亏）</view>
+  </view>
+
+  <!-- 确认卖出弹窗：醒目展示盈亏 -->
+  <van-dialog
+    use-slot
+    show="{{showProfit}}"
+    show-confirm-button="{{false}}"
+    close-on-click-overlay="{{false}}">
+    <view class="pd">
+      <view class="pd-title">{{profitDlg.title}}</view>
+      <view class="pd-subtip" wx:if="{{profitDlg.subTip}}">{{profitDlg.subTip}}</view>
+
+      <!-- 逐笔明细：每笔消耗单独一行 -->
+      <view class="pd-item" wx:for="{{profitDlg.lines}}" wx:key="index">
+        <view class="pd-item-top">
+          <text class="pd-item-time">{{item.time}}</text>
+          <text class="pd-item-price">成本@{{item.price}} · 卖 {{item.hands}} 手</text>
+        </view>
+        <view class="pd-item-bottom">
+          <text class="pd-item-net">净额 ¥ {{item.sellNet}}</text>
+          <text class="pd-item-profit {{item.cls}}">{{item.profit}}</text>
+        </view>
+      </view>
+      <view class="pd-divider"></view>
+      <view class="pd-row">
+        <text class="pd-k">卖出净额合计({{profitDlg.itemCount}}笔)</text>
+        <text class="pd-v">¥ {{profitDlg.sellNet}}</text>
+      </view>
+      <view class="pd-row">
+        <text class="pd-k">卖出费用合计</text>
+        <text class="pd-v">¥ {{profitDlg.sellFee}}</text>
+      </view>
+      <view class="pd-row">
+        <text class="pd-k">对应买入成本合计</text>
+        <text class="pd-v">¥ {{profitDlg.allocatedCost}}</text>
+      </view>
+      <view class="pd-profit {{profitDlg.cls}}">
+        <view class="pd-profit-label">本笔卖出盈亏(已实现)</view>
+        <view class="pd-profit-num">{{profitDlg.profit}}</view>
+        <view class="pd-profit-rate">收益率 {{profitDlg.profitRate}}</view>
+      </view>
+    </view>
+    <!-- 自定义按钮行：不用 van-dialog 内置 footer，避免其按钮宽度溢出 -->
+    <view class="pd-footer">
+      <view class="pd-btn pd-btn-cancel" bindtap="onProfitCancel">再想想</view>
+      <view class="pd-btn pd-btn-confirm" bindtap="onProfitConfirm">确认卖出</view>
+    </view>
+  </van-dialog>
+</view>

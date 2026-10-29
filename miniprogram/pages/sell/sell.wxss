@@ -1,0 +1,331 @@
+/* 卖出页样式 */
+.page {
+  padding-bottom: 160rpx;
+}
+
+.stock-picker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.name {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+.code {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+.hand-tip {
+  font-size: 22rpx;
+  color: #bbb;
+  padding: 4rpx 0 12rpx;
+}
+
+/* 清仓全部按钮 */
+.cnt-row {
+  justify-content: space-between;
+}
+.clear-btn {
+  font-size: 24rpx;
+  color: #e64340;
+  border: 2rpx solid #e64340;
+  border-radius: 10rpx;
+  padding: 4rpx 20rpx;
+}
+
+/* 模式切换 */
+.mode-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mode-label {
+  font-size: 28rpx;
+  color: #333;
+}
+.mode-switch {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 做T批次选择 */
+.tplus-tip {
+  font-size: 22rpx;
+  color: #bbb;
+  margin-bottom: 8rpx;
+}
+.batch {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f2f2f2;
+}
+.batch:last-child {
+  border-bottom: none;
+}
+.batch-check {
+  width: 36rpx;
+  height: 36rpx;
+  border: 2rpx solid #ccc;
+  border-radius: 8rpx;
+  margin-right: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #fff;
+  flex: none;
+}
+.batch-check.checked {
+  background: #e64340;
+  border-color: #e64340;
+}
+.batch-info {
+  flex: 1;
+}
+.batch-top {
+  display: flex;
+  align-items: center;
+}
+.batch-time {
+  font-size: 26rpx;
+  color: #333;
+}
+.batch-price {
+  margin-left: 12rpx;
+  font-size: 22rpx;
+  color: #999;
+}
+.batch-bottom {
+  margin-top: 4rpx;
+}
+.batch-remain {
+  font-size: 20rpx;
+  color: #aaa;
+}
+.batch-input {
+  width: 150rpx;
+  text-align: right;
+  font-size: 26rpx;
+  color: #333;
+}
+.empty-mini {
+  padding: 30rpx 0;
+  text-align: center;
+  font-size: 24rpx;
+  color: #bbb;
+}
+
+/* 确认按钮：固定在页面底部 */
+.sell-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+.arrow {
+  color: #ccc;
+  font-size: 30rpx;
+}
+
+.fee-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 0;
+  font-size: 26rpx;
+  color: #555;
+}
+.fee-val {
+  color: #333;
+  font-weight: 600;
+}
+.fee-val.strong {
+  font-size: 28rpx;
+}
+.up {
+  color: #e64340; /* 涨红 */
+}
+.down {
+  color: #2b9e4f; /* 跌绿 */
+}
+
+/* 预估盈亏醒目面板 */
+.hero {
+  margin-top: 20rpx;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  text-align: center;
+}
+.hero-up {
+  background: #fdeceb;
+  border: 2rpx solid #f5c6c2;
+}
+.hero-down {
+  background: #e9f6ee;
+  border: 2rpx solid #bce2cc;
+}
+.hero-label {
+  font-size: 24rpx;
+  color: #888;
+}
+.hero-num {
+  font-size: 52rpx;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 6rpx 0;
+}
+.hero-up .hero-num,
+.hero-up .hero-rate {
+  color: #e64340;
+}
+.hero-down .hero-num,
+.hero-down .hero-rate {
+  color: #2b9e4f;
+}
+.hero-rate {
+  font-size: 26rpx;
+}
+
+/* 确认卖出弹窗 */
+.pd {
+  padding: 8rpx 32rpx 8rpx;
+}
+.pd-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 20rpx;
+}
+.pd-subtip {
+  font-size: 22rpx;
+  color: #aaa;
+  text-align: center;
+  margin: -10rpx 0 16rpx;
+}
+.pd-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12rpx 0;
+  font-size: 26rpx;
+}
+.pd-k {
+  color: #888;
+}
+.pd-v {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+.pd-profit {
+  margin-top: 20rpx;
+  border-radius: 16rpx;
+  padding: 22rpx;
+  text-align: center;
+}
+.pd-profit.up {
+  background: #fdeceb;
+  border: 2rpx solid #f5c6c2;
+}
+.pd-profit.down {
+  background: #e9f6ee;
+  border: 2rpx solid #bce2cc;
+}
+.pd-profit-label {
+  font-size: 24rpx;
+  color: #888;
+}
+.pd-profit-num {
+  font-size: 56rpx;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 6rpx 0;
+}
+.pd-profit.up .pd-profit-num,
+.pd-profit.up .pd-profit-rate {
+  color: #e64340;
+}
+.pd-profit.down .pd-profit-num,
+.pd-profit.down .pd-profit-rate {
+  color: #2b9e4f;
+}
+.pd-profit-rate {
+  font-size: 26rpx;
+}
+.pd-item {
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f4f4f4;
+}
+.pd-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pd-item-time {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 600;
+}
+.pd-item-price {
+  font-size: 22rpx;
+  color: #999;
+}
+.pd-item-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8rpx;
+}
+.pd-item-net {
+  font-size: 24rpx;
+  color: #666;
+}
+.pd-item-profit {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+.pd-divider {
+  height: 2rpx;
+  background: #f0f0f0;
+  margin: 16rpx 0 8rpx;
+}
+
+/* 弹窗自定义按钮行（替代 van-dialog 内置 footer，宽度受控） */
+.pd-footer {
+  display: flex;
+  border-top: 2rpx solid #f2f2f2;
+}
+.pd-btn {
+  flex: 1;
+  text-align: center;
+  padding: 26rpx 0;
+  font-size: 30rpx;
+  box-sizing: border-box;
+}
+.pd-btn-cancel {
+  color: #646566;
+  border-right: 2rpx solid #f2f2f2;
+}
+.pd-btn-confirm {
+  color: #fff;
+  background: #e64340;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
+}

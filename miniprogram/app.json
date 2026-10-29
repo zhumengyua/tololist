@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/positions/positions",
+    "pages/mine/mine",
+    "pages/buy/buy",
+    "pages/sell/sell",
+    "pages/settings/settings"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "股票记账",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f6fa"
+  },
+  "tabBar": {
+    "color": "#8a8f9c",
+    "selectedColor": "#e64340",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/positions/positions",
+        "text": "持仓",
+        "iconPath": "images/tab/tab-hold.png",
+        "selectedIconPath": "images/tab/tab-hold-active.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/tab/tab-mine.png",
+        "selectedIconPath": "images/tab/tab-mine-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

@@ -1,0 +1,32 @@
+<!-- 费用设置 -->
+<view class="page">
+  <view class="card">
+    <view class="form-row">
+      <view class="form-label">佣金率(%)</view>
+      <input class="form-input" type="digit" placeholder="0.025" value="{{commissionStr}}" data-key="commission" bindinput="onInput" />
+    </view>
+    <view class="tip">默认万2.5，即 0.025%；按成交金额百元比计</view>
+
+    <view class="form-row">
+      <view class="form-label">最低佣金(元)</view>
+      <input class="form-input" type="digit" placeholder="5" value="{{minCommissionStr}}" data-key="minCommission" bindinput="onInput" />
+    </view>
+    <view class="tip">单笔佣金不足此值按此值收取，默认 5 元</view>
+
+    <view class="form-row">
+      <view class="form-label">印花税(%)</view>
+      <input class="form-input" type="digit" placeholder="0.05" value="{{stampStr}}" data-key="stamp" bindinput="onInput" />
+    </view>
+    <view class="tip">仅卖出收取，默认 0.05%</view>
+
+    <view class="form-row">
+      <view class="form-label">过户费(%)</view>
+      <input class="form-input" type="digit" placeholder="0.001" value="{{transferStr}}" data-key="transfer" bindinput="onInput" />
+    </view>
+    <view class="tip">买卖双收，默认 0.001%(万0.1)</view>
+  </view>
+
+  <view class="footer">
+    <view class="btn-primary" bindtap="onSave">保存设置</view>
+  </view>
+</view>

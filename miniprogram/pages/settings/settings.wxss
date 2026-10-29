@@ -1,0 +1,20 @@
+/* 费用设置页样式 */
+.page {
+  padding-bottom: 180rpx;
+}
+
+.tip {
+  font-size: 22rpx;
+  color: #bbb;
+  padding: 4rpx 0 12rpx;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
+}

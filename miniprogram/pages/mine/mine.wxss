@@ -1,0 +1,287 @@
+/* 我的页样式 */
+.user-card {
+  display: flex;
+  align-items: center;
+  margin-top: 24rpx;
+}
+.avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: #f2f3f7;
+  text-align: center;
+  line-height: 96rpx;
+  font-size: 48rpx;
+  margin-right: 24rpx;
+}
+.user-name {
+  font-size: 34rpx;
+  font-weight: 600;
+}
+.user-openid {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.menu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22rpx 0;
+  font-size: 30rpx;
+}
+.arrow {
+  color: #ccc;
+  font-size: 34rpx;
+}
+
+.backup-tip {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #bbb;
+  line-height: 1.6;
+}
+
+.import-area {
+  width: 100%;
+  height: 320rpx;
+  background: #f7f8fa;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  margin: 20rpx 32rpx 4rpx;
+  font-size: 26rpx;
+  color: #999;
+}
+
+.rec {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+.rec:last-child {
+  border-bottom: none;
+}
+.rec-left {
+  flex: 1;
+}
+.rec-name {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.rec-code {
+  font-size: 22rpx;
+  color: #aaa;
+  font-weight: 400;
+}
+.badge {
+  display: inline-block;
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  border-radius: 8rpx;
+  font-size: 22rpx;
+  color: #fff;
+  margin-right: 12rpx;
+}
+.b-buy {
+  background: #e64340;
+}
+.b-sell {
+  background: #2b9e4f;
+}
+.rec-time {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #aaa;
+}
+.rec-right {
+  text-align: right;
+}
+.rec-no {
+  font-size: 26rpx;
+  color: #666;
+}
+.rec-profit {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.rec-rate {
+  font-size: 22rpx;
+}
+.up {
+  color: #e64340; /* 涨红 */
+}
+.down {
+  color: #2b9e4f; /* 跌绿 */
+}
+
+/* 总账概览卡 */
+.sum-card {
+  margin-top: 24rpx;
+}
+.sum-hero {
+  margin-top: 8rpx;
+  border-radius: 16rpx;
+  padding: 26rpx;
+  text-align: center;
+}
+.sum-hero.up {
+  background: #fdeceb;
+  border: 2rpx solid #f5c6c2;
+}
+.sum-hero.down {
+  background: #e9f6ee;
+  border: 2rpx solid #bce2cc;
+}
+.sum-label {
+  font-size: 24rpx;
+  color: #888;
+}
+.sum-num {
+  font-size: 56rpx;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 6rpx 0;
+}
+.sum-hero.up .sum-num,
+.sum-hero.up .sum-rate {
+  color: #e64340;
+}
+.sum-hero.down .sum-num,
+.sum-hero.down .sum-rate {
+  color: #2b9e4f;
+}
+.sum-rate {
+  font-size: 26rpx;
+}
+.sum-row {
+  display: flex;
+  margin-top: 16rpx;
+}
+.sum-cell {
+  flex: 1;
+  text-align: center;
+}
+.sum-cell-label {
+  font-size: 22rpx;
+  color: #999;
+}
+.sum-cell-val {
+  margin-top: 6rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+.sum-divider {
+  height: 2rpx;
+  background: #f0f0f0;
+  margin: 20rpx 0 8rpx;
+}
+.sum-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12rpx 0;
+  font-size: 26rpx;
+  color: #666;
+}
+.sum-line-val {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+.sum-tip {
+  margin-top: 12rpx;
+  font-size: 20rpx;
+  color: #bbb;
+}
+
+/* 操作热力图（GitHub 贡献图风格） */
+.heat-card {
+  margin-top: 24rpx;
+}
+.heat-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.heat-head .card-title {
+  margin-bottom: 12rpx;
+}
+.heat-stat {
+  font-size: 22rpx;
+  color: #999;
+  margin-bottom: 12rpx;
+}
+.heat-num {
+  color: #2b9e4f;
+  font-weight: 700;
+  font-size: 26rpx;
+}
+.heat-scroll {
+  width: 100%;
+  white-space: nowrap;
+}
+.heat-grid {
+  display: inline-flex;
+  flex-direction: row;
+}
+.heat-col {
+  display: flex;
+  flex-direction: column;
+  margin-right: 6rpx;
+}
+.heat-cell {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 4rpx;
+  margin-bottom: 6rpx;
+  flex: none;
+}
+.heat-cell.lv0 {
+  background: #ebedf0;
+}
+.heat-cell.lv1 {
+  background: #9ee9a5;
+}
+.heat-cell.lv2 {
+  background: #5dd66c;
+}
+.heat-cell.lv3 {
+  background: #2b9e4f;
+}
+.heat-cell.lv4 {
+  background: #17672b;
+}
+.heat-cell.future {
+  background: transparent;
+}
+.heat-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 8rpx;
+}
+.heat-legend .heat-cell {
+  margin: 0 0 0 6rpx;
+}
+.heat-legend-txt {
+  font-size: 20rpx;
+  color: #bbb;
+  margin-right: 4rpx;
+}
+
+.footer-note {
+  text-align: center;
+  color: #ccc;
+  font-size: 22rpx;
+  margin: 40rpx 0;
+}

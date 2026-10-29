@@ -1,0 +1,8 @@
+{
+  "name": "stock-ledger",
+  "version": "1.0.0",
+  "description": "个人A股记账小程序",
+  "dependencies": {
+    "@vant/weapp": "^1.11.0"
+  }
+}

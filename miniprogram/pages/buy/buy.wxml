@@ -1,0 +1,93 @@
+<!-- 买入 / 补仓 -->
+<view class="page">
+  <view class="card" wx:if="{{isAdd}}">
+    <view class="buy-target">正在为 <text class="t-name">{{name || code}}</text><text wx:if="{{code}}">（{{code}}）</text>补仓，买入后将按移动加权重新摊薄成本价</view>
+  </view>
+
+  <view class="card">
+    <view class="form-row">
+      <view class="form-label">股票名称</view>
+      <input class="form-input {{isAdd ? 'locked' : ''}}"
+             placeholder="如 贵州茅台"
+             value="{{name}}"
+             data-field="name"
+             bindinput="onInput"
+             disabled="{{isAdd}}" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">股票代码</view>
+      <input class="form-input {{isAdd ? 'locked' : ''}}"
+             placeholder="如 sh600519"
+             value="{{code}}"
+             data-field="code"
+             bindinput="onInput"
+             disabled="{{isAdd}}" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">买入数量(手)</view>
+      <input class="form-input" type="number" placeholder="如 1 = 100股" value="{{numStr}}" data-field="num" bindinput="onInput" />
+    </view>
+    <view class="hand-tip">1 手 = 100 股，买入按整手</view>
+    <view class="form-row">
+      <view class="form-label">成交价(元)</view>
+      <input class="form-input" type="digit" placeholder="0.00" value="{{priceStr}}" data-field="price" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">成交日期</view>
+      <picker mode="date" value="{{buyDate}}" bindchange="onDate">
+        <view class="form-input picker-val">{{buyDate}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 补仓后持仓预览（主要内容，放前面醒目展示） -->
+  <view class="card add-card" wx:if="{{isAdd && addPreview}}">
+    <view class="card-title">补仓后持仓预览</view>
+    <view class="add-grid">
+      <view class="add-cell">
+        <view class="add-cell-label">补仓后摊薄成本</view>
+        <view class="add-cell-num">{{addPreview.newAvgCost}}</view>
+      </view>
+      <view class="add-cell">
+        <view class="add-cell-label">补仓后浮动收益</view>
+        <view class="add-cell-num {{addPreview.cls}}">{{addPreview.newProfit}}</view>
+      </view>
+      <view class="add-cell">
+        <view class="add-cell-label">补仓后收益率</view>
+        <view class="add-cell-num {{addPreview.cls}}">{{addPreview.newRate}}</view>
+      </view>
+    </view>
+    <view class="add-divider"></view>
+    <view class="fee-row">
+      <text>当前持仓</text>
+      <text class="fee-val">{{addPreview.curHeldText}} 股 · 成本 {{addPreview.curAvgCost}}</text>
+    </view>
+    <view class="fee-row">
+      <text class="fee-label">当前价(元) <text class="fee-sub">收益按此估算</text></text>
+      <input class="fee-input" type="digit" placeholder="0.00"
+             value="{{curPriceStr}}" data-field="curPrice" bindinput="onInput" />
+    </view>
+    <view class="fee-note">未填进场数量时，摊薄成本暂取当前持仓成本</view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">费用预估</view>
+    <view class="fee-row">
+      <text>成交金额</text>
+      <text class="fee-val">{{preview.amount}}</text>
+    </view>
+    <view class="fee-row">
+      <text>买入费用(佣金+过户费)</text>
+      <text class="fee-val">{{preview.fee}}</text>
+    </view>
+    <view class="fee-row total">
+      <text>买入总成本</text>
+      <text class="fee-val strong">{{preview.totalCost}}</text>
+    </view>
+    <view class="fee-note">费用按「我的-设置」里的默认参数计算</view>
+  </view>
+
+  <view class="footer">
+    <view class="btn-primary" bindtap="onSave">保存买入</view>
+  </view>
+</view>

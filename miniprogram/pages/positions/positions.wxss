@@ -1,0 +1,269 @@
+/* 持仓列表样式 */
+.page {
+  padding-bottom: 40rpx;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40rpx 32rpx 10rpx;
+}
+.header-title {
+  display: flex;
+  align-items: baseline;
+}
+.header-num {
+  font-size: 60rpx;
+  font-weight: 700;
+  color: #e64340;
+}
+.header-label {
+  margin-left: 16rpx;
+  color: #666;
+  font-size: 26rpx;
+}
+.header-add {
+  width: 64rpx;
+  height: 64rpx;
+  background: #e64340;
+  color: #fff;
+  font-size: 44rpx;
+  line-height: 62rpx;
+  text-align: center;
+  border-radius: 50%;
+  margin-right: 8rpx;
+}
+
+.summary {
+  display: flex;
+  padding: 28rpx 0;
+}
+.sum-item {
+  flex: 1;
+  text-align: center;
+}
+.sum-val {
+  font-size: 34rpx;
+  font-weight: 600;
+}
+.sum-val.grey {
+  color: #555;
+}
+.sum-label {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.name {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+.code {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+.row-right {
+  text-align: right;
+}
+.held {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+.sub {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #aaa;
+}
+
+.row-bottom {
+  display: flex;
+  align-items: center;
+  margin-top: 22rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #f2f2f2;
+}
+.col {
+  flex: 1;
+}
+.col-label {
+  font-size: 22rpx;
+  color: #999;
+}
+.col-val {
+  margin-top: 6rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.col-tap {
+  flex: none;
+  width: 120rpx;
+  text-align: center;
+  color: #e64340;
+  border: 2rpx solid #e64340;
+  border-radius: 10rpx;
+  padding: 10rpx 0;
+  font-size: 26rpx;
+}
+
+/* 统计网格 */
+.stat-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #f2f2f2;
+}
+.stat {
+  width: 33.33%;
+  box-sizing: border-box;
+  padding: 12rpx 0;
+}
+.stat-label {
+  font-size: 22rpx;
+  color: #999;
+}
+.stat-val {
+  margin-top: 6rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+.stat-sub {
+  font-size: 20rpx;
+}
+.up {
+  color: #e64340; /* 涨红 */
+}
+.down {
+  color: #2b9e4f; /* 跌绿 */
+}
+.tap-tip {
+  margin-top: 8rpx;
+  font-size: 20rpx;
+  color: #ccc;
+  text-align: right;
+}
+
+/* Vant SwipeCell：margin 放在 cell 上，卡片本身去掉横向 margin，
+   否则删除按钮与卡片之间错位、滑动时露出灰色缝隙 */
+.swipe-item {
+  display: block;
+  margin: 20rpx 24rpx;
+}
+.card-swipe {
+  margin: 0;
+}
+
+/* Vant SwipeCell 右侧删除按钮样式 */
+.swipe-del {
+  height: 100%;
+  width: 100%;
+  background: #ee0a24;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+  letter-spacing: 4rpx;
+  border-radius: 0 16rpx 16rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 清仓标签 */
+.badge-closed {
+  display: inline-block;
+  font-size: 20rpx;
+  color: #999;
+  border: 1rpx solid #ccc;
+  border-radius: 6rpx;
+  padding: 2rpx 10rpx;
+  margin-bottom: 6rpx;
+}
+
+/* 清仓卖出明细 */
+.sell-block {
+  margin-top: 20rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid #f2f2f2;
+}
+.sell-title {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+.sell-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12rpx 0;
+}
+.sell-date {
+  font-size: 26rpx;
+  color: #333;
+}
+.sell-sub {
+  margin-top: 4rpx;
+  font-size: 20rpx;
+  color: #aaa;
+}
+.sell-right {
+  text-align: right;
+}
+.sell-profit {
+  font-size: 26rpx;
+}
+.sell-sub.up {
+  color: #e64340;
+}
+.sell-sub.down {
+  color: #2b9e4f;
+}
+
+
+/* 卡片操作按钮：卖出(左) / 补仓(右) */
+.actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 4rpx;
+}
+.act {
+  flex: 1;
+  text-align: center;
+  padding: 12rpx 0;
+  font-size: 26rpx;
+  border-radius: 10rpx;
+}
+.act-sell {
+  color: #e64340;
+  border: 2rpx solid #e64340;
+}
+.act-buy {
+  color: #fff;
+  background: #e64340;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+}
+.empty-btn {
+  width: 260rpx;
+  margin: 40rpx auto 0;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
+}

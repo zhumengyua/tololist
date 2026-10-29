@@ -1,0 +1,113 @@
+/* 买入页样式 */
+.page {
+  padding-bottom: 180rpx;
+}
+
+.picker-val {
+  color: #333;
+}
+
+/* 补仓时名称/代码锁定置灰 */
+.form-input.locked {
+  color: #bbb;
+}
+
+/* 补仓预览里的当前价输入框 */
+.fee-input {
+  width: 220rpx;
+  text-align: right;
+  font-size: 26rpx;
+  color: #333;
+}
+.fee-label .fee-sub {
+  color: #bbb;
+  font-size: 20rpx;
+}
+
+/* 收益红涨绿跌 */
+.up {
+  color: #e64340;
+}
+.down {
+  color: #2b9e4f;
+}
+
+
+.hand-tip {
+  font-size: 22rpx;
+  color: #bbb;
+  padding: 4rpx 0 12rpx;
+}
+
+.fee-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 0;
+  font-size: 26rpx;
+  color: #555;
+}
+.fee-val {
+  color: #333;
+}
+.fee-row.total {
+  border-top: 1rpx solid #f2f2f2;
+  margin-top: 8rpx;
+  padding-top: 20rpx;
+}
+.fee-val.strong {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #e64340;
+}
+.fee-note {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #bbb;
+}
+
+/* 补仓后持仓预览——主内容，大号数据 */
+.add-card {
+  border: 2rpx solid #f5c6c2;
+}
+.add-grid {
+  display: flex;
+  margin-top: 8rpx;
+}
+.add-cell {
+  flex: 1;
+  text-align: center;
+}
+.add-cell-label {
+  font-size: 22rpx;
+  color: #999;
+}
+.add-cell-num {
+  margin-top: 10rpx;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.25;
+  word-break: break-all;
+}
+.add-cell-num.up {
+  color: #e64340;
+}
+.add-cell-num.down {
+  color: #2b9e4f;
+}
+.add-divider {
+  height: 2rpx;
+  background: #f0f0f0;
+  margin: 20rpx 0 4rpx;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
+}

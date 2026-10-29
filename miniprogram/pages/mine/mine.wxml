@@ -1,0 +1,132 @@
+<!-- 我的 -->
+<view class="page">
+  <!-- 用户信息 -->
+  <view class="card user-card">
+    <view class="avatar">📒</view>
+    <view class="user-info">
+      <view class="user-name">本机记账</view>
+      <view class="user-openid">数据保存在本机 · 已有 {{recordCount}} 笔交易</view>
+    </view>
+  </view>
+
+  <!-- 总账概览：累计盈亏与盈亏率 -->
+  <view class="card sum-card" wx:if="{{summary}}">
+    <view class="card-title">我的总账</view>
+    <view class="sum-hero {{summary.totalCls}}">
+      <view class="sum-label">累计总盈亏</view>
+      <view class="sum-num">{{summary.total}}</view>
+      <view class="sum-rate">盈亏率 {{summary.rate}}</view>
+    </view>
+    <view class="sum-row">
+      <view class="sum-cell">
+        <view class="sum-cell-label">已实现盈亏</view>
+        <view class="sum-cell-val {{summary.realizedCls}}">{{summary.realizedText}}</view>
+      </view>
+      <view class="sum-cell">
+        <view class="sum-cell-label">浮动盈亏(估)</view>
+        <view class="sum-cell-val {{summary.floatingCls}}">{{summary.floatingText}}</view>
+      </view>
+    </view>
+    <view class="sum-divider"></view>
+    <view class="sum-line">
+      <text>累计买入(含费)</text>
+      <text class="sum-line-val">¥ {{summary.buyCostText}}</text>
+    </view>
+    <view class="sum-line">
+      <text>累计卖出净额</text>
+      <text class="sum-line-val">¥ {{summary.sellNetText}}</text>
+    </view>
+    <view class="sum-line">
+      <text>净投入资金</text>
+      <text class="sum-line-val">¥ {{summary.netInvestText}}</text>
+    </view>
+    <view class="sum-line">
+      <text>在持仓成本</text>
+      <text class="sum-line-val">¥ {{summary.holdingCostText}}</text>
+    </view>
+    <view class="sum-tip">浮动盈亏按最近一次成交价估算（未接行情） · 盈亏率 = 总盈亏 ÷ 净投入</view>
+  </view>
+
+  <!-- 操作热力图：每天有交易即着色，类似 GitHub 贡献图 -->
+  <view class="card heat-card" wx:if="{{heatWeeks.length > 0}}">
+    <view class="heat-head">
+      <view class="card-title">操作热力图</view>
+      <view class="heat-stat">近一年 <text class="heat-num">{{heatActiveDays}}</text> 天操作 · <text class="heat-num">{{heatTotalOps}}</text> 笔</view>
+    </view>
+    <scroll-view class="heat-scroll" scroll-x enable-flex show-scrollbar="{{false}}">
+      <view class="heat-grid">
+        <view class="heat-col" wx:for="{{heatWeeks}}" wx:key="index">
+          <view class="heat-cell lv{{d.lv}} {{d.future ? 'future' : ''}}"
+                wx:for="{{item.days}}" wx:for-item="d" wx:key="k"
+                data-date="{{d.k}}" data-c="{{d.c}}"
+                bindtap="onHeatTap"></view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="heat-legend">
+      <text class="heat-legend-txt">少</text>
+      <view class="heat-cell lv0"></view>
+      <view class="heat-cell lv1"></view>
+      <view class="heat-cell lv2"></view>
+      <view class="heat-cell lv3"></view>
+      <view class="heat-cell lv4"></view>
+      <text class="heat-legend-txt">多</text>
+    </view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="card menu">
+    <view class="menu-row" bindtap="goSettings">
+      <text>默认费用参数</text>
+      <text class="arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 数据备份 -->
+  <view class="section-title">数据备份</view>
+  <view class="card menu">
+    <view class="menu-row" bindtap="goExport">
+      <text>导出备份</text>
+      <text class="arrow">›</text>
+    </view>
+    <view class="menu-row" bindtap="goImport">
+      <text>导入备份</text>
+      <text class="arrow">›</text>
+    </view>
+    <view class="backup-tip">导出后会复制一段备份内容，粘到备忘录/发给朋友保存；换机后导入即可恢复</view>
+  </view>
+
+  <!-- 导入面板 -->
+  <view class="card" wx:if="{{showImport}}">
+    <view class="card-title">导入备份</view>
+    <textarea class="import-area" value="{{importStr}}" bindinput="onImportInput" placeholder="粘贴备份内容到此处" maxlength="-1"></textarea>
+    <view class="btn-plain" bindtap="doImport">开始导入</view>
+  </view>
+
+  <!-- 最近交易记录 -->
+  <view class="section-title" wx:if="{{records.length > 0}}">最近交易</view>
+  <view class="card" wx:if="{{records.length > 0}}">
+    <view class="rec" wx:for="{{records}}" wx:key="id">
+      <view class="rec-left">
+        <view class="rec-name">
+          <text class="badge {{item.type === 'buy' ? 'b-buy' : 'b-sell'}}">{{item.type === 'buy' ? '买' : '卖'}}</text>
+          <text>{{item.name}} <text class="rec-code">{{item.code}}</text></text>
+        </view>
+        <view class="rec-time">{{item.time}} · {{item.num}}手 @ {{item.price}}</view>
+      </view>
+      <view class="rec-right">
+        <view wx:if="{{item.type === 'buy'}}" class="rec-no">成本 {{item.fee}}元</view>
+        <block wx:else>
+          <view class="rec-profit {{item.profit >= 0 ? 'up' : 'down'}}">{{item.profit}}</view>
+          <view class="rec-rate {{item.profit >= 0 ? 'up' : 'down'}}">{{item.profitRate}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:if="{{loaded && records.length === 0}}">
+    <view class="empty-tip">暂无交易记录</view>
+  </view>
+
+  <view class="footer-note">纯记账工具 · 数据仅保存在本机</view>
+</view>

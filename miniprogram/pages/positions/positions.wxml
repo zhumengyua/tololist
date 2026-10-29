@@ -1,0 +1,183 @@
+<!-- 持仓列表：持仓 Tab + 清仓 Tab -->
+<view class="page">
+  <van-tabs
+    active="{{activeTab}}"
+    bind:change="onTabChange"
+    color="#e64340"
+    title-active-color="#e64340"
+    line-width="40">
+    <van-tab title="持仓 {{holdings.length}}">
+      <!-- 持仓汇总 -->
+      <view class="header">
+        <view class="header-title">
+          <view class="header-num">{{holdings.length}}</view>
+          <view class="header-label">持仓股票</view>
+        </view>
+        <view class="header-add" bindtap="goBuy">＋</view>
+      </view>
+      <view class="card summary">
+        <view class="sum-item">
+          <view class="sum-val">{{totalCost}}</view>
+          <view class="sum-label">持仓总成本(元)</view>
+        </view>
+        <view class="sum-item">
+          <view class="sum-val grey">{{totalHeld}}</view>
+          <view class="sum-label">总持仓(手)</view>
+        </view>
+      </view>
+
+      <!-- 持仓列表：每票一行，左滑露出删除 -->
+      <block wx:if="{{holdings.length > 0}}">
+        <van-swipe-cell
+          wx:for="{{holdings}}"
+          wx:key="code"
+          class="swipe-item"
+          right-width="{{DEL_W}}"
+          name="{{item.code}}">
+          <view class="card card-swipe"
+                data-code="{{item.code}}"
+                bindtap="goSell">
+            <view class="row-top">
+              <view class="row-left">
+                <view class="name">{{item.name}}</view>
+                <view class="code">{{item.code}}</view>
+              </view>
+              <view class="row-right">
+                <view class="held">{{item.held}} 手</view>
+                <view class="sub">加仓 {{item.buyCount}} 次</view>
+              </view>
+            </view>
+
+            <!-- 统计网格 -->
+            <view class="stat-grid">
+              <view class="stat">
+                <view class="stat-label">累计总盈亏</view>
+                <view class="stat-val {{item.cls}}">{{item.totalProfit}}</view>
+                <view class="stat-sub {{item.cls}}">({{item.totalRate}})</view>
+              </view>
+              <view class="stat">
+                <view class="stat-label">累计已实现(落袋)</view>
+                <view class="stat-val {{item.cls}}">{{item.realized}}</view>
+              </view>
+              <view class="stat">
+                <view class="stat-label">摊薄成本价</view>
+                <view class="stat-val">{{item.avgCost}}</view>
+              </view>
+              <view class="stat">
+                <view class="stat-label">累计买入本金</view>
+                <view class="stat-val">{{item.buyCost}}</view>
+              </view>
+              <view class="stat">
+                <view class="stat-label">净投入</view>
+                <view class="stat-val">{{item.netInvest}}</view>
+              </view>
+              <view class="stat">
+                <view class="stat-label">累计买/卖(手)</view>
+                <view class="stat-val">买{{item.buyHands}} / 卖{{item.sellHands}}</view>
+              </view>
+            </view>
+            <view class="actions">
+              <view class="act act-sell">卖出</view>
+              <view class="act act-buy"
+                    catchtap="goBuyCode"
+                    data-code="{{item.code}}"
+                    data-name="{{item.name}}">补仓</view>
+            </view>
+            <view class="tap-tip">左滑可删除该持仓</view>
+          </view>
+          <view slot="right"
+                class="swipe-del"
+                bindtap="delStock"
+                data-code="{{item.code}}"
+                data-name="{{item.name}}">删除</view>
+        </van-swipe-cell>
+      </block>
+
+      <!-- 持仓空态 -->
+      <view class="empty" wx:if="{{!loading && holdings.length === 0}}">
+        <view class="empty-icon">📒</view>
+        <view class="empty-tip">还没有持仓，先记一笔买入吧</view>
+      </view>
+    </van-tab>
+
+    <van-tab title="清仓 {{closedCount}}">
+      <!-- 清仓汇总 -->
+      <block wx:if="{{closed.length > 0}}">
+        <view class="card summary">
+          <view class="sum-item">
+            <view class="sum-val {{closedRealizedCls}}">{{closedRealized}}</view>
+            <view class="sum-label">累计已实现(元)</view>
+          </view>
+          <view class="sum-item">
+            <view class="sum-val grey">{{closedCount}}</view>
+            <view class="sum-label">已清仓(只)</view>
+          </view>
+        </view>
+
+        <!-- 清仓列表：每只已全部卖出，左滑可删除 -->
+        <van-swipe-cell
+          wx:for="{{closed}}"
+          wx:key="code"
+          class="swipe-item"
+          right-width="{{DEL_W}}"
+          name="{{item.code}}">
+          <view class="card card-swipe">
+            <view class="row-top">
+              <view class="row-left">
+                <view class="name">{{item.name}}</view>
+                <view class="code">{{item.code}}</view>
+              </view>
+              <view class="row-right">
+                <view class="badge-closed">已清仓</view>
+                <view class="sub">加仓 {{item.buyCount}} 次</view>
+              </view>
+            </view>
+
+            <!-- 清仓统计网格 -->
+            <view class="stat-grid">
+              <view class="stat">
+                <view class="stat-label">累计已实现</view>
+                <view class="stat-val {{item.cls}}">{{item.realized}}</view>
+                <view class="stat-sub {{item.cls}}">({{item.realizedRate}})</view>
+              </view>
+              <view class="stat">
+                <view class="stat-label">累计买(手)</view>
+                <view class="stat-val">{{item.buyHands}}</view>
+              </view>
+              <view class="stat">
+                <view class="stat-label">累计卖(手)</view>
+                <view class="stat-val">{{item.sellHands}}</view>
+              </view>
+            </view>
+            <!-- 卖出明细（清仓记录） -->
+            <view class="sell-block" wx:if="{{item.sells.length > 0}}">
+              <view class="sell-title">卖出明细 {{item.sells.length}} 笔</view>
+              <view class="sell-item" wx:for="{{item.sells}}" wx:for-item="s" wx:key="id">
+                <view class="sell-left">
+                  <view class="sell-date">{{s.time}}</view>
+                  <view class="sell-sub">卖 {{s.numText}} 手 @ {{s.price}} · 费 {{s.fee}} 元</view>
+                </view>
+                <view class="sell-right">
+                  <view class="sell-profit {{s.cls}}">{{s.profit}}</view>
+                  <view class="sell-sub {{s.cls}}">{{s.rate}}</view>
+                </view>
+              </view>
+            </view>
+            <view class="tap-tip">左滑可删除该清仓记录</view>
+          </view>
+          <view slot="right"
+                class="swipe-del"
+                bindtap="delStock"
+                data-code="{{item.code}}"
+                data-name="{{item.name}}">删除</view>
+        </van-swipe-cell>
+      </block>
+
+      <!-- 清仓空态 -->
+      <view class="empty" wx:if="{{!loading && closed.length === 0}}">
+        <view class="empty-icon">🗂</view>
+        <view class="empty-tip">暂无清仓记录</view>
+      </view>
+    </van-tab>
+  </van-tabs>
+</view>
